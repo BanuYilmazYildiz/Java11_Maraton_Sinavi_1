@@ -8,7 +8,7 @@ public class OgrenciBilgilerii {
 	static int sinif_mevcudu;
 	static String[] sinifArkadaslari;
 	static MaasOzelListe maasOzelListe = new MaasOzelListe();
-	static String[] hobiDizisi;
+	static String[][] hobiDizisi;
 	static String[][] hobilerDizisi;
 	static String[] hobilerArray;
 
@@ -84,6 +84,7 @@ public class OgrenciBilgilerii {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Öğrenci Seçiniz....: ");
 		String isim = sc.nextLine();
+		int total_hobi = 0;
 		for (int i = 0; i < sinif_mevcudu; i++) {
 
 			if (ogrenciOzelListe.sinifOgrenciler[i].equals(isim)) {
@@ -97,30 +98,42 @@ public class OgrenciBilgilerii {
 				String secim4 = sc.nextLine();
 				if (secim1.equalsIgnoreCase("E")) {
 					hobiler[i][0] = true;
-					strHobi += "Yürümek,";
+					strHobi = "Yürümek,";
+					total_hobi++;
 				} else {
 					hobiler[i][0] = false;
 				}
 				if (secim2.equalsIgnoreCase("E")) {
 					hobiler[i][1] = true;
-					strHobi += "Kitap Okuma,";
+					strHobi = "Kitap Okuma";
+					total_hobi++;
 				} else {
 					hobiler[i][1] = false;
 				}
 				if (secim3.equalsIgnoreCase("E")) {
 					hobiler[i][2] = true;
-					strHobi += "Spor,";
+					strHobi = "Spor";
+					total_hobi++;
 				} else {
 					hobiler[i][2] = false;
 				}
 				if (secim4.equalsIgnoreCase("E")) {
 					hobiler[i][3] = true;
-					strHobi += "Kod Yazma,";
+					strHobi = "Kod Yazma";
+					total_hobi++;
+
 				} else {
 					hobiler[i][3] = false;
 				}
 
 			}
+			hobiDizisi = new String[sinif_mevcudu][total_hobi];
+			for (int j = 0; j < total_hobi; j++) {
+				if (hobiler[i][j]) {
+					hobiDizisi[i][j] = strHobi;
+				}
+			}
+
 		}
 
 	}
@@ -138,13 +151,13 @@ public class OgrenciBilgilerii {
 	}
 
 	public static void sinifListesi() {
-
-		System.out.println("No    | Ad          | Hobileri                | Maaş Beklentisi");
+		System.out.println("No    | Ad          | Hobiler                | Maaş Beklentisi");
 		for (int i = 0; i < sinif_mevcudu; i++) {
-			for (int j = 0; j < hobilerDizisi[i].length; j++)
-
-				System.out.printf("%-6s %-12s %-23s %-7s\n", (i + 1), ogrenciOzelListe.sinifOgrenciler[i],
-						hobilerDizisi[i][j], maasOzelListe.maasOzelListe[i]);
+			System.out.printf("%-6s %-12s ", (i + 1), ogrenciOzelListe.sinifOgrenciler[i]);
+			for (int j = 0; j < hobiDizisi[i].length; j++) {
+				System.out.print(hobiDizisi[i][j] + ", ");
+			}
+			System.out.printf("%-7s\n", maasOzelListe.maasOzelListe[i]);
 		}
 	}
 }
