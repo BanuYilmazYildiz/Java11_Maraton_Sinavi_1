@@ -2,10 +2,15 @@ package com.banu;
 
 import java.util.Scanner;
 
-public class OgrenciBilgileri {
-	static OgrenciOzelListe sinifArkadaslari = new OgrenciOzelListe();
+public class OgrenciBilgilerii {
+
+	static OgrenciOzelListe ogrenciOzelListe = new OgrenciOzelListe();
 	static int sinif_mevcudu;
-	static String[][] sinifListesi;
+	static String[] sinifArkadaslari;
+	static MaasOzelListe maasOzelListe = new MaasOzelListe();
+	static String[] hobiDizisi;
+	static String[][] hobilerDizisi;
+	static String[] hobilerArray;
 
 	public static void ogrenciBilgileri() {
 
@@ -65,27 +70,23 @@ public class OgrenciBilgileri {
 		System.out.print("Kaç öğrenci tanımlayacaksınız....: ");
 		sinif_mevcudu = sc.nextInt();
 		sc.nextLine();
-		sinifListesi = new String[sinif_mevcudu][4];
 		for (int i = 0; i < sinif_mevcudu; i++) {
 			System.out.print((i + 1) + ". Öğrencinin adı.....: ");
 			String ad = sc.nextLine();
-			sinifListesi[i][1] = ad;
-			sinifArkadaslari.add(ad);
-			sinifListesi[i][0] = String.valueOf(i + 1);
-
+			ogrenciOzelListe.add(ad);
 		}
-
 	}
 
 	public static void hobileriniGir() {
 		String strHobi = "";
 		boolean[][] hobiler = new boolean[sinif_mevcudu][4];
+
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Öğrenci Seçiniz....: ");
 		String isim = sc.nextLine();
 		for (int i = 0; i < sinif_mevcudu; i++) {
 
-			if (sinifListesi[i][1].equalsIgnoreCase(isim)) {
+			if (ogrenciOzelListe.sinifOgrenciler[i].equals(isim)) {
 				System.out.print("Yürümekten hoşlanır mısın[E/H]? ");
 				String secim1 = sc.nextLine();
 				System.out.print("Kitap Okumaktan hoşlanır mısın[E/H]? ");
@@ -118,10 +119,6 @@ public class OgrenciBilgileri {
 				} else {
 					hobiler[i][3] = false;
 				}
-				if (strHobi.lastIndexOf(',') == strHobi.length() - 1) {
-					strHobi = strHobi.substring(0, strHobi.lastIndexOf(','));
-				}
-				sinifListesi[i][2] = strHobi;
 
 			}
 		}
@@ -131,23 +128,23 @@ public class OgrenciBilgileri {
 	public static void maasBeklentisiniGir() {
 		for (int i = 0; i < sinif_mevcudu; i++) {
 			Scanner sc = new Scanner(System.in);
-			System.out.print((i + 1) + ". Öğrenci " + sinifListesi[i][1] + " in beklentisi...: ");
-			int maasBeklentisi = sc.nextInt();
+			System.out.print((i + 1) + ". Öğrenci " + ogrenciOzelListe.sinifOgrenciler[i] + " in beklentisi...: ");
+			double maasBeklentisi = sc.nextDouble();
 			sc.nextLine();
-			sinifListesi[i][3] = String.valueOf(maasBeklentisi);
+			maasOzelListe.add(maasBeklentisi);
 
 		}
 
 	}
 
 	public static void sinifListesi() {
-		System.out.println("No    |Ad          |Hobileri  	    	     	       |Maaş Beklentisi");
+
+		System.out.println("No    | Ad          | Hobileri                | Maaş Beklentisi");
 		for (int i = 0; i < sinif_mevcudu; i++) {
-			System.out.printf("%-6s %-12s %-35s %-7s\n", sinifListesi[i][0], sinifListesi[i][1], sinifListesi[i][2],
-					sinifListesi[i][3]);
+			for (int j = 0; j < hobilerDizisi[i].length; j++)
 
+				System.out.printf("%-6s %-12s %-23s %-7s\n", (i + 1), ogrenciOzelListe.sinifOgrenciler[i],
+						hobilerDizisi[i][j], maasOzelListe.maasOzelListe[i]);
 		}
-
 	}
-
 }
