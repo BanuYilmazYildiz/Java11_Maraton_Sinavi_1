@@ -127,10 +127,23 @@ public class OgrenciBilgilerii {
 				}
 
 			}
-			hobiDizisi = new String[sinif_mevcudu][total_hobi];
-			for (int j = 0; j < total_hobi; j++) {
+		}
+		hobiDizisi = new String[sinif_mevcudu][total_hobi];
+		int hobiIndex = 0;
+
+		for (int i = 0; i < sinif_mevcudu; i++) {
+			for (int j = 0; j < 4; j++) {
 				if (hobiler[i][j]) {
-					hobiDizisi[i][j] = strHobi;
+					if (j == 0) {
+						hobiDizisi[i][hobiIndex] = "Yürümek";
+					} else if (j == 1) {
+						hobiDizisi[i][hobiIndex] = "Kitap Okuma";
+					} else if (j == 2) {
+						hobiDizisi[i][hobiIndex] = "Spor";
+					} else if (j == 3) {
+						hobiDizisi[i][hobiIndex] = "Kod Yazma";
+					}
+					hobiIndex++;
 				}
 			}
 
@@ -151,11 +164,11 @@ public class OgrenciBilgilerii {
 	}
 
 	public static void sinifListesi() {
-		System.out.println("No    | Ad          | Hobiler                | Maaş Beklentisi");
+		System.out.println("No    |Ad          | Hobiler                | Maaş Beklentisi");
 		for (int i = 0; i < sinif_mevcudu; i++) {
-			System.out.printf("%-6s %-12s ", (i + 1), ogrenciOzelListe.sinifOgrenciler[i]);
+			System.out.printf("%-6s %-13s ", (i + 1), ogrenciOzelListe.sinifOgrenciler[i]);
 			for (int j = 0; j < hobiDizisi[i].length; j++) {
-				System.out.print(hobiDizisi[i][j] + ", ");
+				System.out.printf(hobiDizisi[i][j] + ", ");
 			}
 			System.out.printf("%-7s\n", maasOzelListe.maasOzelListe[i]);
 		}
